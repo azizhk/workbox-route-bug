@@ -40,6 +40,7 @@ export default async function registerServiceWorker(showSnack: ShowSnack) {
   const wb = new Workbox("/sw.js");
   const registration = await wb.register();
   if (registration && registration.waiting) {
+    console.log("there is a sw waiting");
     onSWWaiting();
   }
   wb.addEventListener("activated", onSWActivated);

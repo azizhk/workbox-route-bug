@@ -1,39 +1,34 @@
-import NextApp from 'next/app'
-import MaterialSnackbar, { SnackbarProps } from '../components/SnackBar'
-import registerServiceWorker from '../utils/serviceWorkerRegistrar'
+import * as React from "react";
+import NextApp from "next/app";
+import MaterialSnackbar, { SnackbarProps } from "../components/SnackBar";
 
 interface State {
-  snackbarProps: SnackbarProps
+  snackbarProps: SnackbarProps;
 }
+
+type ShowSnack = (snackbarProps: SnackbarProps) => void;
+export const ShowSnackContext = React.createContext<ShowSnack>(_ => {});
 
 export default class App extends NextApp<{}, State> {
   state: Readonly<State> = {
     snackbarProps: {
-      open: false,
-    },
-  }
-  async componentDidMount() {
-    // Keep all non essential to your app below await Promise.resolve
-    await Promise.resolve()
-
-    // Service Worker is an enhancement.
-    // If it errors, your App should still function.
-    if (process.env.NODE_ENV === 'production') {
-      registerServiceWorker(this.showSnack)
+      open: false
     }
-  }
+  };
 
-  showSnack = (snackbarProps: SnackbarProps) => {
-    this.setState({ snackbarProps })
-  }
+  showSnack: ShowSnack = (snackbarProps: SnackbarProps) => {
+    this.setState({ snackbarProps });
+  };
 
   render() {
-    const { snackbarProps } = this.state
+    const { snackbarProps } = this.state;
     return (
       <>
-        {super.render()}
+        <ShowSnackContext.Provider value={this.showSnack}>
+          {super.render()}
+        </ShowSnackContext.Provider>
         <MaterialSnackbar {...snackbarProps} />
       </>
-    )
+    );
   }
 }
