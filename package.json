@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "next",
-    "build": "next build && next export && workbox injectManifest workbox-config.js",
+    "build": "next build && next export && cp-cli public/sw.js out/sw.js",
     "start": "serve ./out"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "@types/node": "^12.6.8",
     "@types/react": "^16.8.22",
     "@types/react-dom": "16.8.5",
+    "cp-cli": "^2.0.0",
     "typescript": "^3.5.3",
     "workbox-cli": "next",
     "workbox-precaching": "next",

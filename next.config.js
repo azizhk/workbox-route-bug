@@ -14,6 +14,11 @@ module.exports = {
       })
     );
 
+    config.resolve.alias["workbox-window"] =
+      "workbox-window/build/workbox-window.dev.umd";
+
+    // config.optimization.minimize = false;
+
     if (!isServer && !dev) {
       const { InjectManifest } = require("workbox-webpack-plugin");
       config.plugins.push(
