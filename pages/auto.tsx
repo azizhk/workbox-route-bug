@@ -2,19 +2,18 @@ import * as React from "react";
 import registerServiceWorker from "../utils/serviceWorkerRegistrar";
 import { ShowSnackContext } from "../pages/_app";
 
-const RegisterSWButton: React.FC = () => {
+const Auto: React.FC = () => {
   const showSnack = React.useContext(ShowSnackContext);
-  function onClick() {
+  React.useEffect(() => {
     registerServiceWorker(showSnack);
-  }
+  }, [showSnack]);
   return (
-    <div
-      onClick={onClick}
-      style={{ textDecoration: "underline", cursor: "pointer" }}
-    >
-      Click me
-    </div>
+    <>
+      <div>{`Build ID: ${process.env.NEXT_BUILD_ID}`}</div>
+
+      <div>Here WB.register() is called at load time.</div>
+    </>
   );
 };
 
-export default RegisterSWButton;
+export default Auto;
