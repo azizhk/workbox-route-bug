@@ -1,0 +1,46 @@
+diff --git a/node_modules/workbox-window/Workbox.js b/node_modules/workbox-window/Workbox.js
+index 79d6f9e..1a1a69c 100644
+--- a/node_modules/workbox-window/Workbox.js
++++ b/node_modules/workbox-window/Workbox.js
+@@ -275,7 +275,7 @@ class Workbox extends WorkboxEventTarget {
+             this._activeDeferred.resolve(this._compatibleControllingSW);
+             this._controllingDeferred.resolve(this._compatibleControllingSW);
+             this._reportWindowReady(this._compatibleControllingSW);
+-            this._compatibleControllingSW.addEventListener('statechange', this._onStateChange, { once: true });
++            // this._compatibleControllingSW.addEventListener('statechange', this._onStateChange, { once: true });
+         }
+         // If there's a waiting service worker with a matching URL before the
+         // `updatefound` event fires, it likely means that this site is open
+@@ -302,6 +302,7 @@ class Workbox extends WorkboxEventTarget {
+         }
+         // If an "own" SW is already set, resolve the deferred.
+         if (this._sw) {
++            this._sw.addEventListener('statechange', this._onStateChange);
+             this._swDeferred.resolve(this._sw);
+         }
+         if (process.env.NODE_ENV !== 'production') {
+diff --git a/node_modules/workbox-window/build/workbox-window.dev.umd.js b/node_modules/workbox-window/build/workbox-window.dev.umd.js
+index 3d123a3..9a77831 100644
+--- a/node_modules/workbox-window/build/workbox-window.dev.umd.js
++++ b/node_modules/workbox-window/build/workbox-window.dev.umd.js
+@@ -668,9 +668,9 @@
+ 
+               _this3._reportWindowReady(_this3._compatibleControllingSW);
+ 
+-              _this3._compatibleControllingSW.addEventListener('statechange', _this3._onStateChange, {
+-                once: true
+-              });
++              // _this3._compatibleControllingSW.addEventListener('statechange', _this3._onStateChange, {
++              //   once: true
++              // });
+             } // If there's a waiting service worker with a matching URL before the
+             // `updatefound` event fires, it likely means that this site is open
+             // in another tab, or the user refreshed the page (and thus the prevoius
+@@ -700,6 +700,7 @@
+ 
+ 
+             if (_this3._sw) {
++              _this3._sw.addEventListener('statechange', _this3._onStateChange);
+               _this3._swDeferred.resolve(_this3._sw);
+             }
+ 

@@ -3,12 +3,15 @@
   "scripts": {
     "dev": "next",
     "build": "next build && next export && cp-cli public/sw.js out/sw.js",
-    "start": "serve ./out"
+    "start": "serve ./out",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@material-ui/core": "4.2.1",
     "@material-ui/icons": "4.2.1",
     "next": "latest",
+    "patch-package": "^6.1.2",
+    "postinstall-postinstall": "^2.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "workbox-window": "next"
